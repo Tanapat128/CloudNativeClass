@@ -33,8 +33,8 @@ public class UserControllerTest {
     public void getUser() {
         User actuals;
         User expects;
-        //Test loop for 5 users
-        for (int userID = 1; userID <= 5; userID++) {
+        //Test each user with loop
+        for (int userID = 1; userID <= allUser.length; userID++) {
             expects = allUser[userID - 1];
             actuals = userControl.getUser(String.valueOf(userID));
             assertEquals("getUser Fails in UserID: " + (userID + 1), expects, actuals);
