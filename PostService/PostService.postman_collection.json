@@ -1,0 +1,498 @@
+{
+	"info": {
+		"_postman_id": "a92d8e89-d290-43d6-a50a-1fb4db22ec1d",
+		"name": "PostService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostService: /posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27309c61-8f4b-49a8-bee0-caa6750ddd94",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\r\n    \"title\" : \"Software Process Discussion\",\r\n    \"description\" : \"I think that our teacher is very handsome, don't you\"\r\n}\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts"
+					]
+				},
+				"description": "Create a post"
+			},
+			"response": []
+		},
+		{
+			"name": "PostService: /posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63df2478-23cf-4d27-8e5b-cae3ca7664c9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Amount of Post is correct!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var data_length = jsonData.length;",
+							"    pm.expect(data_length).to.eql(2);",
+							"});",
+							"",
+							"pm.test(\"Post1 is true\", function () {",
+							"        var jsonData = pm.response.json()[0];",
+							"        var title = jsonData.title;",
+							"        var description = jsonData.description;",
+							"        pm.expect(title).to.eql(\"Cloud-Native1\");",
+							"        pm.expect(description).to.eql(\"This is a great subject in the world\");",
+							"    ",
+							"});",
+							"pm.test(\"Post2 is true\", function () {",
+							"        var jsonData = pm.response.json()[1];",
+							"        var title = jsonData.title;",
+							"        var description = jsonData.description;",
+							"        pm.expect(title).to.eql(\"Software Process Discussion\");",
+							"        pm.expect(description).to.eql(\"I think that our teacher is very handsome, don't you\");",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Cloud-Native\",\r\n    \"description\" : \"Rak-tor-na-ja-ei-ei\",\r\n    \"username\" : \"tanapat128\"\r\n    \r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts"
+					]
+				},
+				"description": "CloudNative Repository Hibernate"
+			},
+			"response": []
+		},
+		{
+			"name": "PostService:  /posts/{post_id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cafb988-6e8a-4a74-9768-265140aef5af",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Post1 is true\", function () {",
+							"        var jsonData = pm.response.json();",
+							"        var id = jsonData.id;",
+							"        var title = jsonData.title;",
+							"        var description = jsonData.description;",
+							"        var user_id = jsonData.User;",
+							"        pm.expect(id).to.eql(1);",
+							"        pm.expect(title).to.eql(\"Cloud-Native1\");",
+							"        pm.expect(description).to.eql(\"This is a great subject in the world\");",
+							"        ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comment: /posts/{post_id}/comments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"content\": \"No!, I do not gree with u\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/posts/1/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1",
+						"comments"
+					]
+				},
+				"description": "Create a comment to a post"
+			},
+			"response": []
+		},
+		{
+			"name": "Comment: /comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7759f28c-b91d-4a2c-bcc6-3487e7bbcb9b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Amount of Comment is correct!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var data_length = jsonData.length;",
+							"    pm.expect(data_length).to.eql(2);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Comment1 is true!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var comm_content = jsonData[0].content;",
+							"    pm.expect(comm_content).to.eql(\"Sure, I gree with u\");",
+							"});",
+							"",
+							"pm.test(\"Comment2 is true!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var comm_content = jsonData[1].content;",
+							"    pm.expect(comm_content).to.eql(\"No!, I do not gree with u\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments"
+					]
+				},
+				"description": "Find all comments in a system"
+			},
+			"response": [
+				{
+					"name": "http://localhost:8080/comments",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 20 Sep 2018 18:23:55 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookie": [],
+					"body": "[{\"id\":1,\"content\":\"?????????????\",\"commentator\":\"tanapat128\",\"commentDate\":\"2018-09-21T01:21:32\"},{\"id\":2,\"content\":\"comment2 post1\",\"commentator\":\"tanapat128\",\"commentDate\":\"2018-09-21T01:22:18\"},{\"id\":3,\"content\":\"comment3 post2\",\"commentator\":\"tanapat128\",\"commentDate\":\"2018-09-21T01:22:36\"}]"
+				}
+			]
+		},
+		{
+			"name": "Comment: /comments/{comment_id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "740c537a-6f02-408c-8621-a78f8c549ed3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Comment1 is true!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var comm_content = jsonData.content;",
+							"    pm.expect(comm_content).to.eql(\"Sure, I gree with u\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments",
+						"1"
+					]
+				},
+				"description": "Find a comment by commentID"
+			},
+			"response": []
+		},
+		{
+			"name": "Comment: /posts/{post_id}/comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a98df84-f052-453d-b2f2-6b3b02f3a314",
+						"type": "text/javascript",
+						"exec": [
+							"//ทำไม่สำเร็จครับ"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/posts/1/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1",
+						"comments"
+					]
+				},
+				"description": "Find all comments in a post (byPostID) //ทำไม่สำเร็จครับ"
+			},
+			"response": []
+		},
+		{
+			"name": "User: /users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cbe0c38-3103-4788-b6d8-677d04249aef",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Create a user successfully\", function () {",
+							"        var jsonData = pm.response.json();",
+							"        ",
+							"        var user_fname = jsonData.firstname;",
+							"        var user_lname = jsonData.lastname;",
+							"        pm.expect(user_fname).to.eql(\"James\");",
+							"        pm.expect(user_lname).to.eql(\"Jirayu\");",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstname\": \"James\",\n\t\"lastname\": \"Jirayu\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Create a user"
+			},
+			"response": []
+		},
+		{
+			"name": "User: /users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca1e9cfb-c8c0-4f1c-805b-50fda3e44206",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Amount of User is correct!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var data_length = jsonData.length;",
+							"    pm.expect(data_length).to.eql(2);",
+							"});",
+							"",
+							"",
+							"pm.test(\"User1 is true!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var user_fname = jsonData[0].firstname;",
+							"    var user_lname = jsonData[0].lastname;",
+							"    pm.expect(user_fname).to.eql(\"Bird\");",
+							"    pm.expect(user_lname).to.eql(\"Thongchai\");",
+							"});",
+							"",
+							"pm.test(\"User2 is true!\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var user_fname = jsonData[1].firstname;",
+							"    var user_lname = jsonData[1].lastname;",
+							"    pm.expect(user_fname).to.eql(\"James\");",
+							"    pm.expect(user_lname).to.eql(\"Jirayu\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				},
+				"description": "get a list of users"
+			},
+			"response": []
+		},
+		{
+			"name": "User: /users/{user_id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52e9edb5-88ec-4bad-add9-9c5ab8cc2311",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"User id 1 is true\", function () {",
+							"        var jsonData = pm.response.json();",
+							"        var user_fname = jsonData.firstname;",
+							"        var user_lname = jsonData.lastname;",
+							"        pm.expect(user_fname).to.eql(\"Bird\");",
+							"        pm.expect(user_lname).to.eql(\"Thongchai\");",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "get user by user_id\n"
+			},
+			"response": []
+		}
+	]
+}
